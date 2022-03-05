@@ -1,0 +1,74 @@
+= TDD - Test Driven Development
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== Introduction
+Crie um arquivo de teste chamado *anagram-spec.js*. Nele nós criaremos um teste para uma função que iremos criar.
+
+Crie um arquivo *anagram.js* e dentro dele criar uma função chamada *isAnagram()*. Vamos apenas exportá-la. Por enquanto ela ficará vazia. Vamos primeiro escrever nossos testes.
+[source,js]
+----
+function isAnagram() {}
+module.exports = isAnagram;
+----
+
+No arquivo *anagram-spec.js* adicione.
+[source,js]
+----
+var isAnagram = require("../anagram");
+describe("Anagram", function () {
+  it('is true when "abc" and "cba"', function () {
+    expect(isAnagram("abc", "cba")).toEqual(true);
+  });
+  it('is true when "Amor" and "Roma"', function () {
+    expect(isAnagram("Amor", "Roma")).toEqual(true);
+  });
+  it("is true when two empty strings", function () {
+    expect(isAnagram("", "")).toEqual(true);
+  });
+  it('is true when "132" and 312', function () {
+    expect(isAnagram("132", 312)).toEqual(true);
+  });
+  it('is true when "0.12" and "102"', function () {
+    expect(isAnagram("0.12", "102")).toEqual(true);
+  });
+  it('is true when 0.12 and "102"', function () {
+    expect(isAnagram(0.12, "102")).toEqual(true);
+  });
+  it("is false when 012 and 102", function () {
+    expect(isAnagram(012, 102)).toEqual(false);
+  });
+});
+----
+
+[source,js]
+----
+function isAnagram(str1, str2) {
+  str1 = str1
+    .toString()
+    .replace(".", "")
+    .toLowerCase()
+    .split("")
+    .sort()
+    .join("");
+  str2 = str2
+    .toString()
+    .replace(".", "")
+    .toLowerCase()
+    .split("")
+    .sort()
+    .join("");
+
+  return str1 === str2;
+}
+
+module.exports = isAnagram;
+----
