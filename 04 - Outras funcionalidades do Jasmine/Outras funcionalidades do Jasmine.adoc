@@ -1,0 +1,128 @@
+= Outras funcionalidades do Jasmine
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== Outras funcionalidades do Jasmine
+=== Before e After
+Uma funcionalidade muito útil é a possibilidade de executar um código antes ou depois da execução de cada spec. Normalmente é usado para declarar variáveis e então limpar seus valores antes que cada teste seja executado.
+
+O *beforeEach()* nós vimos antes. Usamos para poder registrar o Matcher que criamos. Também há a função *afterEach()*, para executar um código depois de cada spec.
+
+[source,js]
+----
+describe("Anagram", function () {
+  var result = 2;
+  afterEach(function () {
+    result = 2;
+  });
+  it("has to result in 5", function () {
+    result += 3;
+    expect(result).toEqual(5);
+  });
+  it("has to result in 9", function () {
+    result += 7;
+    expect(result).toEqual(9);
+  });
+});
+----
+Isso pode ser importante, porque às vezes executamos uma função que altera o estado de um objeto ou variável, deixando-os sujos para o teste seguinte. Então um dos principais objetivos dessas funções *beforeEach()* e *afterEach()* é limpar, reiniciar o estado do que estamos testando.
+
+Além dessas duas funções que executam antes e depois de cada *it()*, também temos as funções *beforeAll()* e *afterAll()*. A diferença aqui é que elas só executam uma vez antes e depois da execução de todas as Specs.
+
+=== Suítes Aninhadas
+Conforme nosso código for ficando cada vez mais complexo, pode ser interessante organizarmos melhor as nossas suítes de teste. Para isso, o Jasmine permite que a gente as aninhe.
+
+Podemos imaginar o nosso exemplo de anagramas. Poderíamos organizar melhor se separássemos os testes que envolvem letras dos que envolvem números.
+[source,js]
+----
+describe("Anagram", function () {
+  describe("Letters", function () {
+    it('is true when "abc" and "cba"', function () {
+      expect(isAnagram("abc", "cba")).toEqual(true);
+    });
+    it('is true when "Amor" and "Roma"', function () {
+      expect(isAnagram("Amor", "Roma")).toEqual(true);
+    });
+    it("is true when two empty strings", function () {
+      expect(isAnagram("", "")).toEqual(true);
+    });
+  });
+  describe("Numbers", function () {
+    it('is true when "132" and 312', function () {
+      expect(isAnagram("132", 312)).toEqual(true);
+    });
+    it('is true when "0.12" and "102"', function () {
+      expect(isAnagram("0.12", "102")).toEqual(true);
+    });
+    it('is true when 0.12 and "102"', function () {
+      expect(isAnagram(0.12, "102")).toEqual(true);
+    });
+    it("is false when 012 and 102", function () {
+      expect(isAnagram(012, 102)).toEqual(false);
+    });
+  });
+});
+----
+
+=== Pulando Specs e Suítes
+Pode ser que em algumas ocasiões a gente queira evitar algumas suítes ou specs. Talvez a gente ainda não tenha terminado o código, ou é algo a ser ignorado no momento. Nesse caso, normalmente as pessoas comentam o código.
+
+O Jasmine oferece uma maneira mais simples do que comentar várias linhas.
+
+Para ignorar uma spec, basta colocar um *x* na frente do nome da função *it()*, chamando-a agora de *xit()*.
+[source,js]
+----
+describe("letters", function () {
+  xit('is true when "abc" and "cba"', function () {
+    expect(isAnagram("abc", "cba")).toEqual(true);
+  });
+});
+----
+
+Para ignorar uma suíte inteira, basta colocar um *x* na frente do nome da função *describe()*:
+[source,js]
+----
+xdescribe("letters", function () {
+  it('is true when "abc" and "cba"', function () {
+    expect(isAnagram("abc", "cba")).toEqual(true);
+  });
+});
+----
+
+Caso queira ignorar specs de uma certa linha para baixo, não seria tão confortável ficar comentando ou ficar colocando *x* na frente de cada spec. Já que nossas suítes e specs são simples funções, podemos parar sua execução executando o comando *return*, evitando a continuação da execução da função.
+[source,js]
+----
+describe("letters", function () {
+  it('is true when "abc" and "cba"', function () {
+    expect(isAnagram("abc", "cba")).toEqual(true);
+  });
+  return; // A funcao "describe()" sera interrompida aqui.
+
+  it('is true when "Amor" and "Roma"', function () {
+    expect(isAnagram("Amor", "Roma")).toEqual(true);
+  });
+  it("is true when two empty strings", function () {
+    expect(isAnagram("", "")).toEqual(true);
+  });
+});
+----
+
+Ao contrário da exclusão xit() e xdescribe(), que evitam a execução, também há o foco (fit() e fdescribe() ). Quando presentes, apenas essas funções serão executadas, ignorando qualquer it() e describe() presentes.
+
+=== Comparando tipos de valores
+Pode ser que em alguns casos a gente não queira saber qual o valor retornado de uma função, mas sim, o tipo retornado.
+
+Podemos, por exemplo, usar essa função para assegurar que determinada função só está retornando um único tipo de dado. Podemos testar que um cálculo sempre retorne números, e nunca uma String, NaN, etc.
+[source,js]
+----
+expect(isAnagram('abc','cba')).toEqual(jasmine.any(Boolean));
+expect(new MyObject).toEqual(jasmine.any(MyObject));
+----
