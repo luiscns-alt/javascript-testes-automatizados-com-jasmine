@@ -1,0 +1,30 @@
+= AutomaizandoJasmine
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== Introduction
+Vamos instalar o Nodemon com o comando:
+
+[source,bash]
+----
+$ npm install nodemon -g
+----
+
+Isso irá instalar o Nodemon globalmente em sua máquina, permitindo que a gente acesse ele pelo terminal.
+
+O Nodemon é uma ferramenta que executa o Node.js e reinicia ele assim que uma modificação em algum arquivo for localizada.
+
+Com o Nodemon instalado, ao invés de simplesmente chamar o Jasmine pelo terminal, execute o seguinte comando:
+
+[source,bash]
+----
+$ nodemon --exec jasmine
+----
