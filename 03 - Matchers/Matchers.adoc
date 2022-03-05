@@ -1,0 +1,130 @@
+= Matchers
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== Introduction
+O Jasmine possui uma série de outros métodos para asserções
+
+=== toBe
+Quando fazemos comparação com objetos, o toBe verifica se ambos são o mesmo objeto, não importando se são simplesmente iguais.
+[source,js]
+----
+var a = {nome: 'Luis'};
+var b = {nome: 'Luis'};
+
+expect(a).toEqual(b); // 1
+expect(a).toBe(b);    // 2
+expect(a).toBe(a);    // 3
+----
+
+[square]
+* Em 1 dará sucesso, pois os objetos são iguais.
+* Em 2 dará erro, pois os objetos, mesmo sendo iguais, não são os mesmos.
+* Em 3 dará sucesso, pois os objetos testados são os mesmos.
+
+
+=== toBeTruthy e toBeFalsy
+Esses matchers servem para verificar se um valor é verdadeiro ou falso.
+
+.Create a basic PDF document using Prawn
+[source,js]
+----
+expect("Luis").toBeTruthy();
+expect(0).toBeFalsy();
+----
+
+Note que não passamos apenas *true* e *false* para o *expect()*, mas passamos outros valores. Os dois testes irão passar, pois essas funções fazem a validação de acordo com a validação do *==* no JavaScript.
+
+Isso significa que os seguintes valores são considerados falsos:
+
+[square]
+* false
+* 0
+* ""
+* undefined
+* null
+* NaN
+
+=== not
+Com "not" nós podemos negar as comparações.
+[source,js]
+----
+expect(false).not.toBeTruthy();
+----
+
+=== toContain
+Serve para validar se o valor esperado(sendo este um array) contém um item passado como parâmetro.
+[source,js]
+----
+expect([1,2,3]).toContain(2);
+expect("Luis").toContain("Web");
+expect("Hello Web").not.toContain("World");
+----
+
+=== toBeDefined e toBeUndefined
+toBeDefined : Serve para validar se o valor esperado é diferente de undefined.
+toBeUndefined : Serve para validar se o valor esperado é igual a undefined.
+[source,js]
+----
+var obj = {};
+expect(obj.name).toBeUndefined();
+obj.name = "Luis";
+expect(obj.name).toBeDefined();
+----
+
+=== toBeNull
+Serve para comparar se o valor esperado é nulo.
+[source,js]
+----
+expect(null).toBeNull();
+----
+
+=== toBeNan
+Verifica se algo é NaN (not a number).
+[source,js]
+----
+expect(10).not.toBeNaN();
+expect(0 / 0).toBeNaN();
+----
+
+=== toBeGreaterThan e toBeLessThan
+* toBeLessThan : Serve para validar se o valor esperado é menor do que o valor passado como parâmetro.
+* toBeGreaterThan: Serve para validar se o valor esperado é maior do que o valor passado como parâmetro.
+[source,js]
+----
+expect(10).toBeGreaterThan(1);
+expect(1).toBeLessThan(10);
+expect("a").toBeLessThan("z");
+----
+
+=== toBeCloseTo
+Serve para realizar a comparação baseado na precisão de casas decimais.
+[source,js]
+----
+expect(20.3).toBeCloseTo(20.32, 1);
+----
+
+=== toMatch
+Serve para validar se o valor esperado atende a uma determinada expressão regular, passada como parâmetro.
+[source,js]
+----
+expect("Luis").toMatch(/Web/);
+----
+
+=== toThrow
+Serve para validar se uma função lança uma exception(erro).
+[source,js]
+----
+var myFunction = function(){
+    throw new Error();
+}
+expect(myFunction).toThrow();
+----
