@@ -19,3 +19,41 @@ Então ele pode ser uma função ou objeto que nos permite substituir um pedaço
 
 Um Spy só existe no bloco em que foi declarado.
 Após isso, ele é removido.
+
+=== Outras propriedades dos Spies
+
+* .calls.any()
+
+    retorna “false” se o Spy não foi chamado e “true” se alguma chamada já foi realizada
+
+* .calls.count()
+
+    retorna o número de vezes que o Spy foi chamado
+
+* .calls.argsFor(index)
+
+    retorna os parâmetros passados para a função de acordo com o índice indicado. Ex:
+
+    setValues(5, 37);
+
+    setValues.calls.argsFor(1) // retorna 37
+
+* .calls.allArgs()
+
+    retorna todos os parâmetros passados para a função
+
+* .calls.all()
+
+    retorna o contexto (this) e parâmetros passados pelas chamadas
+
+* .calls.mostRecent()
+
+    retorna o contexto (this) e parâmetros passados pela chamada mais recente
+
+* .calls.first()
+
+    retorna o contexto (this) e parâmetros passados pela primeira chamada
+
+* .calls.reset()
+
+    limpa todos os dados armazenados pelo Spy
