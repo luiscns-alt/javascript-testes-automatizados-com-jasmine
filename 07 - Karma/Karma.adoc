@@ -1,0 +1,81 @@
+= Karma
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== Instalando o Karma
+O Karma (inicialmente conhecido como Testacular) é uma ferramenta criada pela equipe que criou o AngularJS. Ela serve para executar testes.
+
+Com ele podemos, por exemplo, mandar que os nossos testes sejam executados no Chrome e no Firefox ao mesmo tempo com apenas um comando.
+
+Primeiro vamos instalar o Karma. Para isso, execute o comando:
+[source,bash]
+----
+$ npm install -g karma-cli
+----
+
+Isso irá instalar o Karma globalmente em sua máquina, nos possibilitando executar o Karma diretamente da linha de comando.
+
+Vamos aproveitar nosso diretório com nossos testes. Abra o terminal na raiz do diretório e execute o comando:
+
+[source,bash]
+----
+$ karma init karma.conf.js
+----
+
+Agora precisamos instalar algumas dependências. Execute o comando:
+
+[source,bash]
+----
+$ npm install karma karma-jasmine karma-chrome-launcher jasmine-core
+----
+
+Já temos nossos testes feitos. Então para iniciar, basta executar o comando:
+
+[source,bash]
+----
+$ karma start karma.conf.js
+----
+
+== Executando testes com Karma e WebPack
+
+Provavelmente irá dar um erro ao executarmos os testes, pois estamos usando o “require” que é um comando do Node.js, e o Karma executa testes em navegadores.
+
+Podemos usar um plugin do Karma que interpreta o comando “require()”, fazendo uso do WebPack. Para isso, execute o comando:
+
+[source,bash]
+----
+$ npm install webpack karma-webpack
+----
+Tenha certeza de que possui o WebPack instalado em sua máquina. Caso contrário, execute o comando:
+
+[source,bash]
+----
+$ npm install webpack -g
+----
+Agora vamos ao arquivo de configuração do Karma e fazer uma pequena alteração. Em “preprocessors”, adicione o array [“webpack”] com a chave “spec/*spec.js”.
+
+Note que o nome da chave deve ser igual a string passada em “files”.
+
+Agora basta iniciar o karma com o comando
+
+[source,bash]
+----
+$ karma start
+----
+(como estamos com o nome do arquivo de configuração no padrão, “karma.conf.js”, podemos executar o comando “start” sem precisar indicar o nome)
+
+
+Agora teremos nosso código sendo testado no Chrome. Você pode configurar o Karma para testar outros navegadores, e eles serão abertos ao mesmo tempo.
+
+Além disso, também há o navegador Phantom, o qual não possui interface. Pode ser muito útil caso queira executar os testes em um navegador, mas está em um ambiente sem interface gráfica.
+
+O Karma por padrão fica observando alterações nos arquivos, então não precisamos mais do Nodemon para ficar reiniciando os testes a cada modificação.
+
