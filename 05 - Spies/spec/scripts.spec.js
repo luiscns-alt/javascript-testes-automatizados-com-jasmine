@@ -6,14 +6,40 @@ class Calculador {
     }
 }
 
+// describe('Person', function () {
+//     it('uses the Calculador to sum', function () {
+//         var calculator = new Calculador();
+//         var person = new Person();
+
+//         spyOn(person, 'randomCalc');
+//         person.randomCalc(calculator);
+//         expect(person.randomCalc).toHaveBeenCalledWith(calculator);
+//     });
+// });
+
 describe('Person', function () {
-    it('uses the Calculador to sum', function () {
-        var calculator = new Calculador();
+    var tape;
+
+    beforeEach(function () {
+        tape = jasmine.createSpyObj('tape', [
+            'play',
+            'pause',
+            'stop',
+            'rewind',
+        ]);
+
+        tape.play();
+        tape.pause();
+        tape.rewind(0);
+    });
+
+    it('uses the Calculator to divide', function () {
+        var calculator = new Calculator();
         var person = new Person();
 
-        spyOn(person, 'randomCalc');
-        person.randomCalc(calculator);
-        expect(person.randomCalc).toHaveBeenCalledWith(calculator);
+        person.randomDiv = jasmine.createSpy('div spy').and.returnValue(5);
+
+        expect(person.randomDiv()).toEqual(5);
     });
 });
 
