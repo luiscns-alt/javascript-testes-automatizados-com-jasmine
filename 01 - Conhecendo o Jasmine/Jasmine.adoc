@@ -11,32 +11,40 @@ Doc Writer <doc@example.com>
 // An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
 
 == Introduction
-Jasmine é um framework para a criação de testes orientados a comportamentos para JavaScript. Ele possui várias funcionalidades que nos ajudam a testar nosso código.
+
+Jasmine é um framework para a criação de testes orientados a comportamentos para JavaScript.
+Ele possui várias funcionalidades que nos ajudam a testar nosso código.
 
 O Jasmine pode rodar no navegador, Node.js, Ruby e Python.
 https://jasmine.github.io/[Jasmine]
 
 === GETTING STARTED
+
 ==== JASMINE FOR NODE.JS
+
 - Add Jasmine to your package.json
+
 [source,bash]
 ----
 npm install --save-dev jasmine
 ----
 
 - Initialize Jasmine in your project
+
 [source,bash]
 ----
 npx jasmine init
 ----
 
 - Set jasmine as your test script in your package.json
+
 [source,json]
 ----
 "scripts": { "test": "jasmine" }
 ----
 
 - Run your tests
+
 [source,bash]
 ----
 npm test

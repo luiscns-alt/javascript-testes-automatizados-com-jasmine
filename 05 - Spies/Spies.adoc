@@ -1,0 +1,21 @@
+= Spies
+Doc Writer <doc@example.com>
+:reproducible: :listing-caption: Listing
+:source-highlighter: rouge
+:toc:
+// Uncomment next line to add a title page (or set doctype to book)
+//:title-page:
+// Uncomment next line to set page size (default is A4)
+//:pdf-page-size: Letter
+
+// An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
+
+== O que são Spies?
+
+Com testes nós conseguimos assegurar de que nosso código está funcionando do jeito que deveria.
+
+No Jasmine, um Spy nos permite verificar pedaços de código, modificar funções, rastrear chamadas de funções e seus parâmetros.
+Então ele pode ser uma função ou objeto que nos permite substituir um pedaço de código.
+
+Um Spy só existe no bloco em que foi declarado.
+Após isso, ele é removido.

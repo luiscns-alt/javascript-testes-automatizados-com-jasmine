@@ -11,10 +11,16 @@ Doc Writer <doc@example.com>
 // An example of a basic http://asciidoc.org[AsciiDoc] document prepared by {author}.
 
 == Introduction
-Crie um arquivo de teste chamado *anagram-spec.js*. Nele nós criaremos um teste para uma função que iremos criar.
 
-Crie um arquivo *anagram.js* e dentro dele criar uma função chamada *isAnagram()*. Vamos apenas exportá-la. Por enquanto ela ficará vazia. Vamos primeiro escrever nossos testes.
-[source,js]
+Crie um arquivo de teste chamado *anagram-spec.js*.
+Nele nós criaremos um teste para uma função que iremos criar.
+
+Crie um arquivo *anagram.js* e dentro dele criar uma função chamada *isAnagram()*.
+Vamos apenas exportá-la.
+Por enquanto ela ficará vazia.
+Vamos primeiro escrever nossos testes.
+[source,javascript]
+
 ----
 function isAnagram() {}
 module.exports = isAnagram;
@@ -22,6 +28,7 @@ module.exports = isAnagram;
 
 No arquivo *anagram-spec.js* adicione.
 [source,js]
+
 ----
 var isAnagram = require("../anagram");
 describe("Anagram", function () {
